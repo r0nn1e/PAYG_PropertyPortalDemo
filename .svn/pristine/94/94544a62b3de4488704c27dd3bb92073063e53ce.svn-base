@@ -1,0 +1,114 @@
+﻿payg_field_capitalise{
+    text-transform:capitalize;
+}
+.payg_main_page {
+    text-align: center;
+    padding: 5px;
+    margin: 15px;
+    width: 100%;
+    min-height:680px;
+}
+
+.payg_form {
+    border: 3px solid purple;
+    padding-top: 40px;
+    text-align: left;
+    background-color:oldlace;
+    min-height:700px;
+}
+
+.payg_page_header{
+    border: 3px solid purple;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color:#000000;
+    color:white;
+    vertical-align:central;
+    font-size:x-large;
+}
+
+.payg_data_navigator{
+    border: 3px solid purple;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color:#000000;
+    vertical-align:central;
+    border: 3px solid #4a4a4a;
+    font-size:small;
+}
+
+.payg_data_navigator.button
+{
+    background-color:black;
+    color:white;
+}
+
+.payg_form_row {  
+    margin-bottom:10px;  
+    margin-left:10px;
+    vertical-align:baseline;
+    border:1px solid purple;
+    padding:6px;
+}
+    .payg_form_row:hover {
+    /* background-color: lightgray; */
+}
+
+.payg_form_label {
+    text-align: right;
+    padding-right: 6px;
+    padding-top: 1px;
+    color: black;
+    width: 120px;
+    float: left;
+    vertical-align:text-bottom;
+}
+.payg_form_label:hover{
+    color:blue;
+}
+
+.groupbox{
+    float:left;
+    width:45%;    
+    border:2px solid purple;
+    margin-left:36px;
+    padding:5px;
+    min-height:620px;
+    text-align:center;
+}
+
+.payg_form_textbox {
+    text-align: left;
+    margin-right: 0px;
+    float: left;
+    min-width: 350px;
+    vertical-align:top;
+    color:#000000;
+    
+}
+
+.payg_form_textbox:hover{
+    background-color:lightblue;
+}
+/* new clearfix */
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+* html .clearfix {
+    zoom: 1;
+}
+/* IE6 */
+*:first-child + html .clearfix {
+    zoom: 1;
+}
+/* IE7 */
+/*# sourceMappingURL=bootstrap.css.map */
+

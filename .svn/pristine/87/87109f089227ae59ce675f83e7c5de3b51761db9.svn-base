@@ -1,0 +1,95 @@
+﻿Imports System
+Imports System.Data
+Imports Data
+Imports DayPilot.Utils
+Imports DayPilot.Web.Ui
+Imports DayPilot.Web.Ui.Enums
+Imports DayPilot.Web.Ui.Events
+Imports DayPilot.Web.Ui.Events.Scheduler
+
+Partial Public Class _Default
+	Inherits System.Web.UI.Page
+
+	Private tasks As DataTable
+
+	Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs)
+		If Not IsPostBack Then
+			DropDownListEmployee.DataSource = (New DataManager()).GetEmployees()
+			DropDownListEmployee.DataBind()
+
+			UpdateScheduler()
+
+			DayPilotScheduler1.SetScrollX(DayPilotScheduler1.StartDate.AddHours(7))
+		End If
+	End Sub
+
+	Private Sub UpdateScheduler()
+		Dim eid As String = CStr(If(DayPilotScheduler1.ClientState("employee"), DropDownListEmployee.SelectedValue))
+		Dim employee As Integer = Convert.ToInt32(eid)
+
+		DayPilotScheduler1.StartDate = New Date(Date.Today.Year, Date.Today.Month, 1)
+		DayPilotScheduler1.Days = Date.DaysInMonth(Date.Today.Year, Date.Today.Month)
+		DayPilotScheduler1.DataSource = (New DataManager()).GetRecords(employee)
+		DayPilotScheduler1.DataBind()
+		DayPilotScheduler1.Update()
+	End Sub
+
+	Protected Sub DayPilotScheduler1_EventMenuClick(ByVal sender As Object, ByVal e As EventMenuClickEventArgs)
+		Select Case e.Command
+			Case "Delete"
+				Dim id_Renamed As Integer = If(e.Recurrent, Convert.ToInt32(e.RecurrentMasterId), Convert.ToInt32(e.Value))
+				CType(New DataManager(), DataManager).DeleteRecord(id_Renamed)
+				UpdateScheduler()
+				DayPilotScheduler1.Update()
+		End Select
+	End Sub
+
+	Protected Sub DayPilotScheduler1_EventResize(ByVal sender As Object, ByVal e As EventResizeEventArgs)
+		Dim id_Renamed As Integer = If(e.Recurrent, Convert.ToInt32(e.RecurrentMasterId), Convert.ToInt32(e.Value))
+		CType(New DataManager(), DataManager).MoveRecord(id_Renamed, e.NewStart, e.NewEnd)
+		UpdateScheduler()
+	End Sub
+
+	Protected Sub DayPilotScheduler1_Command(ByVal sender As Object, ByVal e As CommandEventArgs)
+		Select Case e.Command
+			Case "refresh"
+				UpdateScheduler()
+				DayPilotScheduler1.Update(CallBackUpdateType.Full)
+
+		End Select
+	End Sub
+
+	Protected Sub DayPilotScheduler1_BeforeEventRender(ByVal sender As Object, ByVal e As BeforeEventRenderEventArgs)
+		Dim duration As TimeSpan = e.End - e.Start
+		e.Html = Server.HtmlEncode(String.Format("{0} hours", duration.TotalHours.ToString()))
+		e.BubbleHtml = String.Format("<div><b>In</b>: {0:hh:mm tt}</div><div><b>Out</b>: {1:hh:mm tt}</div>", e.Start, e.End)
+
+	End Sub
+
+	Protected Sub DayPilotScheduler1_EventMove(ByVal sender As Object, ByVal e As EventMoveEventArgs)
+		Dim id_Renamed As Integer = If(e.Recurrent, Convert.ToInt32(e.RecurrentMasterId), Convert.ToInt32(e.Value))
+		CType(New DataManager(), DataManager).MoveRecord(id_Renamed, e.NewStart, e.NewEnd)
+		UpdateScheduler()
+	End Sub
+	Protected Sub DayPilotScheduler1_BeforeCellRender(ByVal sender As Object, ByVal e As BeforeCellRenderEventArgs)
+		If Not e.IsBusiness Then
+			e.BackgroundColor = "#e3e3e3"
+		End If
+	End Sub
+
+	Protected Sub DayPilotScheduler1_BeforeTimeHeaderRender(ByVal sender As Object, ByVal e As BeforeTimeHeaderRenderEventArgs)
+	End Sub
+
+	Protected Sub DayPilotScheduler1_OnBeforeResHeaderRender(ByVal sender As Object, ByVal e As BeforeResHeaderRenderEventArgs)
+		e.Columns(0).Html = e.Date.ToString("dddd")
+
+		Dim eid As String = CStr(If(DayPilotScheduler1.ClientState("employee"), DropDownListEmployee.SelectedValue))
+		Dim employee As Integer = Convert.ToInt32(eid)
+
+		Dim total As TimeSpan = (New DataManager()).GetTotalMinutesForDay(e.Date, employee)
+
+		If total > TimeSpan.Zero Then
+			e.Columns(1).Html = total.ToString("hh\:mm")
+		End If
+	End Sub
+End Class

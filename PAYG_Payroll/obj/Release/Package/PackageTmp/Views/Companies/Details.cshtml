@@ -1,0 +1,114 @@
+﻿@model PAYG_Payroll.Models.Company
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Company</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_add1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_add1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_add2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_add2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_add3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_add3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_add4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_add4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_towncity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_towncity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_county)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_county)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_postcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_postcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_bankname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_bankname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_sortcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_sortcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_accountnum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_accountnum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_payeref)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_payeref)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_payeaccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_payeaccount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.comp_name }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

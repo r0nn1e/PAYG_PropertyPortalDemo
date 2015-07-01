@@ -1,0 +1,37 @@
+﻿using System;
+using System.Data;
+using Data;
+using DayPilot.Web.Ui.Recurrence;
+
+public partial class Edit : System.Web.UI.Page
+{
+    private RecurrenceRule _rule = RecurrenceRule.NoRepeat;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+
+            DataRow dr = new DataManager().GetRecord(Convert.ToInt32(Request.QueryString["id"]));
+            TextBoxStart.Text = ((DateTime)dr["TimesheetIn"]).ToString();
+            TextBoxEnd.Text = ((DateTime)dr["TimesheetOut"]).ToString();
+            TextBoxName.Text = (string)new DataManager().GetEmployee((int) dr["EmployeeId"])["EmployeeName"];
+            TextBackColour.SelectedIndex = Convert.ToInt32(Request.QueryString["EmployeeRate"]);
+            DataBind();
+        }
+    }
+
+    protected void ButtonOK_Click(object sender, EventArgs e)
+    {
+        DateTime start = Convert.ToDateTime(TextBoxStart.Text);
+        DateTime end = Convert.ToDateTime(TextBoxEnd.Text);
+        int payrate = TextBackColour.SelectedIndex;
+        new DataManager().UpdateRecord(Convert.ToInt32(Request.QueryString["id"]), start, end, payrate);
+        Modal.Close(this, "OK");
+    }
+
+    protected void ButtonCancel_Click(object sender, EventArgs e)
+    {
+        Modal.Close(this);
+    }
+
+}

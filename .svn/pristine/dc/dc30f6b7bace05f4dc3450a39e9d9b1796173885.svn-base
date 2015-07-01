@@ -1,0 +1,179 @@
+﻿Imports System
+Imports System.Configuration
+Imports System.Data
+Imports System.Data.Common
+Imports System.Data.SqlClient
+Imports DayPilot.Web.Ui
+Imports DayPilot.Web.Ui.Recurrence
+
+Namespace Data
+	Public Class DataManager
+
+        Private Function CreateDataAdapter(ByVal cmd As String) As DbDataAdapter
+            Dim da As DbDataAdapter = Factory.CreateDataAdapter()
+            da.SelectCommand = CreateCommand(cmd)
+            Return da
+        End Function
+
+		Public Function GetRecords(ByVal employee As Integer) As DataTable
+			Dim da = CreateDataAdapter("select * from [Timesheet] where [EmployeeId] = @employee order by [TimesheetIn]")
+			AddParameterWithValue(da.SelectCommand, "employee", employee)
+			Dim dt As New DataTable()
+			da.Fill(dt)
+			Return dt
+		End Function
+
+		Public Function GetEmployees() As DataTable
+			Dim da = CreateDataAdapter("select * from [Employee] order by [EmployeeName]")
+			Dim dt As New DataTable()
+			da.Fill(dt)
+			Return dt
+		End Function
+
+		Public Function GetEmployee(ByVal id As Integer) As DataRow
+			Dim da = CreateDataAdapter("select * from [Employee] where [EmployeeId] = @id")
+			AddParameterWithValue(da.SelectCommand, "id", id)
+			Dim dt As New DataTable()
+			da.Fill(dt)
+			If dt.Rows.Count > 0 Then
+				Return dt.Rows(0)
+			End If
+			Return Nothing
+		End Function
+
+
+		#Region "Helper methods"
+		Private ReadOnly Property ConnectionString() As String
+			Get
+				Return Db.ConnectionString()
+			End Get
+		End Property
+
+		Private ReadOnly Property Factory() As DbProviderFactory
+			Get
+				Return Db.Factory()
+			End Get
+		End Property
+
+		Private Function CreateConnection() As DbConnection
+			Dim connection As DbConnection = Factory.CreateConnection()
+			connection.ConnectionString = ConnectionString
+			Return connection
+		End Function
+
+		Private Function CreateCommand(ByVal text As String) As DbCommand
+			Dim command As DbCommand = Factory.CreateCommand()
+			command.CommandText = text
+			command.Connection = CreateConnection()
+
+			Return command
+		End Function
+
+		Private Function CreateCommand(ByVal text As String, ByVal connection As DbConnection) As DbCommand
+			Dim command As DbCommand = Factory.CreateCommand()
+			command.CommandText = text
+			command.Connection = connection
+
+			Return command
+		End Function
+
+		Private Sub AddParameterWithValue(ByVal cmd As DbCommand, ByVal name As String, ByVal value As Object)
+			Dim parameter = Factory.CreateParameter()
+			parameter.Direction = ParameterDirection.Input
+			parameter.ParameterName = name
+			parameter.Value = value
+			cmd.Parameters.Add(parameter)
+		End Sub
+
+		Private Function GetIdentity(ByVal c As DbConnection) As Integer
+			Dim cmd = CreateCommand(Db.IdentityCommand(), c)
+			Return Convert.ToInt32(cmd.ExecuteScalar())
+		End Function
+
+		#End Region
+
+		Public Sub DeleteRecord(ByVal id As Integer)
+			Using con = CreateConnection()
+				con.Open()
+
+				Dim cmd = CreateCommand("delete from [Timesheet] where [TimesheetId] = @id", con)
+				AddParameterWithValue(cmd, "id", id)
+				cmd.ExecuteNonQuery()
+
+			End Using
+		End Sub
+
+		Public Sub MoveRecord(ByVal id As Integer, ByVal start As Date, ByVal [end] As Date)
+			Using con = CreateConnection()
+				con.Open()
+
+				Dim cmd = CreateCommand("update [Timesheet] set [TimesheetIn] = @start, [TimesheetOut] = @end where [TimesheetId] = @id", con)
+				AddParameterWithValue(cmd, "id", id)
+				AddParameterWithValue(cmd, "start", start)
+				AddParameterWithValue(cmd, "end", [end])
+				cmd.ExecuteNonQuery()
+			End Using
+		End Sub
+
+		Public Sub CreateRecord(ByVal start As Date, ByVal [end] As Date, ByVal employee As Integer)
+			Using con As DbConnection = CreateConnection()
+				con.Open()
+
+				Dim cmd = CreateCommand("insert into [Timesheet] ([TimesheetIn], [TimesheetOut], [EmployeeId]) values (@start, @end, @employee)", con)
+				AddParameterWithValue(cmd, "start", start)
+				AddParameterWithValue(cmd, "end", [end])
+				AddParameterWithValue(cmd, "employee", employee)
+				cmd.ExecuteNonQuery()
+
+			End Using
+		End Sub
+
+		Public Function GetRecord(ByVal id As Integer) As DataRow
+			Dim da = CreateDataAdapter("select * from [Timesheet] where [TimesheetId] = @id")
+			AddParameterWithValue(da.SelectCommand, "id", id)
+			Dim dt As New DataTable()
+			da.Fill(dt)
+			If dt.Rows.Count > 0 Then
+				Return dt.Rows(0)
+			End If
+			Return Nothing
+		End Function
+
+		Public Sub UpdateRecord(ByVal id As Integer, ByVal start As Date, ByVal [end] As Date)
+			Using con = CreateConnection()
+				con.Open()
+
+				Dim cmd = CreateCommand("update [Timesheet] set [TimesheetIn] = @start, [TimesheetOut] = @end where [TimesheetId] = @id", con)
+				AddParameterWithValue(cmd, "id", id)
+				AddParameterWithValue(cmd, "start", start)
+				AddParameterWithValue(cmd, "end", [end])
+				cmd.ExecuteNonQuery()
+			End Using
+		End Sub
+
+		Public Function GetTotalMinutesForDay(ByVal day As Date, ByVal employee As Integer) As TimeSpan
+			Dim start As Date = day.Date
+			Dim [end] As Date = start.AddDays(1)
+
+			Dim da = CreateDataAdapter("select * from [Timesheet] where [EmployeeId] = @employee and NOT (([TimesheetOut] <= @start) OR ([TimesheetIn] >= @end)) order by [TimesheetIn]")
+			AddParameterWithValue(da.SelectCommand, "employee", employee)
+			AddParameterWithValue(da.SelectCommand, "start", start)
+			AddParameterWithValue(da.SelectCommand, "end", [end])
+			Dim dt As New DataTable()
+			da.Fill(dt)
+
+			Dim total As TimeSpan = TimeSpan.Zero
+			For Each dr As DataRow In dt.Rows
+				total = total.Add(TotalMinutes(dr))
+			Next dr
+			Return total
+		End Function
+
+		Private Shared Function TotalMinutes(ByVal dr As DataRow) As TimeSpan
+			Dim start As Date = DirectCast(dr("TimesheetIn"), Date)
+			Dim [end] As Date = DirectCast(dr("TimesheetOut"), Date)
+
+			Return ([end].Subtract(start))
+		End Function
+	End Class
+End Namespace

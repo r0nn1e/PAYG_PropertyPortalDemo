@@ -1,0 +1,82 @@
+﻿@model PAYG_Payroll.Models.PayWeeks
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PayWeeks</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeekNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeekNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RotaWeek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RotaWeek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsProcessed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsProcessed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,219 @@
+﻿@model PAYG_Payroll.Models.Company
+
+@{
+    ViewBag.Title = "Edit Company Details";
+}
+
+<h4>Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.ActionLink("Home", "Index", "Home")</h4>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div style="margin-top:0">
+            <div class="col_left">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.comp_id)
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <div class="col_left">Name</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <div class="col_left">Address 1</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_add1, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_add1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <div class="col_left">Address 2</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_add2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_add2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <div class="col_left">Address 3</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_add3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_add3, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <div class="col_left">Address 3</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_add4, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_add4, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <div class="col_left">Address 4</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_towncity, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_towncity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">County</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_county, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_county, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">Post Code</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_postcode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_postcode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">Bank Name</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_bankname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_bankname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="margin-top:0">
+            <div class="col_right">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">Sort-Code</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_sortcode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_sortcode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">Account Number</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_accountnum, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_accountnum, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">HMRC PAYE REF</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_payeref, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_payeref, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">HMRC Account Number</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_payeaccount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_payeaccount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <div class="col_left">HMRC User Name</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_hmrcusername, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_hmrcusername, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">HMRC Password</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_hmrcpassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_hmrcpassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">Weekly Pay Day</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_normalpaydayMonth, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_normalpaydayMonth, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">Monthly Pay Day</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_normalpaydayweek, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_normalpaydayweek, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col_left">Employer Alloowance</div>
+                        <div class="col_left">
+                            @Html.EditorFor(model => model.comp_employerallowance, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.comp_employerallowance, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="form-group">
+
+    <div class="col_left"><input type="submit" value="Save" class="btn btn-default" />&nbsp;&nbsp;&nbsp;@Html.ActionLink("Home", "Index", "Home")</div>
+</div>
+<div style="clear:both"></div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

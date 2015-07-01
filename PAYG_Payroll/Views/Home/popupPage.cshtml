@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PAYG_Payroll.Models.Employee>
+<div class="modal-body">
+    <div class="alert alert-warning">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        FORM GOES HERE
+    </div>
+    <table class="table" style="border: 1px solid black;background-color:silver">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+            </tr>
+        }
+
+    </table>
+    @using (Html.BeginForm("popupPage", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            &nbsp;
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" id="approve-btn" class="btn btn-danger">Save</button>
+            </div>
+        </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#approve-btn').click(function () {
+            $('#modal-container').modal('hide');
+        });
+    });
+</script>

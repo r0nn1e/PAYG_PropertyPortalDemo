@@ -1,0 +1,258 @@
+﻿@model PAYG_Payroll.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Salutation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salutation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KnownAs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KnownAs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Add1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Add1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Add2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Add2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Add3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Add3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.County)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.County)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeTel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeTel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NiNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NiNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCodeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxCodeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCodeLetter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxCodeLetter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxCodePrefix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxCodePrefix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HolidayRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HolidayRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MileRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MileRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IncludeInPayroll)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IncludeInPayroll)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrossPayToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrossPayToDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxablePayToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxablePayToDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxPaidToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxPaidToDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NiPaidToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NiPaidToDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeekOneMonthOne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeekOneMonthOne)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HolidayEntitlementCurrentYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HolidayEntitlementCurrentYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HolidayTakenCurrentYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HolidayTakenCurrentYear)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

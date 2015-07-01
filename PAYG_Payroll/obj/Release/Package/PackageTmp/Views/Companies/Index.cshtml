@@ -1,0 +1,98 @@
+﻿@model IEnumerable<PAYG_Payroll.Models.Company>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_add1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_add2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_add3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_add4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_towncity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_county)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_postcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_bankname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_sortcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_accountnum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_payeref)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_payeaccount)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.comp_name }) |
+            @Html.ActionLink("Details", "Details", new { id = item.comp_name }) |
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_add1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_add2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_add3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_add4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_towncity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_county)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_postcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_bankname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_sortcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_accountnum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_payeref)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_payeaccount)
+        </td>
+    </tr>
+}
+
+</table>

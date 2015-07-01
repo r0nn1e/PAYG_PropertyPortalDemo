@@ -1,0 +1,30 @@
+﻿Imports System
+Imports Data
+Imports Util
+
+Partial Public Class [New]
+	Inherits System.Web.UI.Page
+
+	Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs)
+		If Not IsPostBack Then
+			TextBoxStart.Text = Convert.ToDateTime(Request.QueryString("start")).ToString()
+			TextBoxEnd.Text = Convert.ToDateTime(Request.QueryString("end")).ToString()
+			TextBoxName.Text = CStr((New DataManager()).GetEmployee(Convert.ToInt32(Request.QueryString("employee")))("EmployeeName"))
+
+			DataBind()
+		End If
+	End Sub
+
+	Protected Sub ButtonOK_Click(ByVal sender As Object, ByVal e As EventArgs)
+		Dim start As Date = Convert.ToDateTime(TextBoxStart.Text)
+		Dim [end] As Date = Convert.ToDateTime(TextBoxEnd.Text)
+		Dim employee As Integer = Convert.ToInt32(Request.QueryString("employee"))
+
+		CType(New DataManager(), DataManager).CreateRecord(start, [end], employee)
+		Modal.Close(Me, "OK")
+	End Sub
+
+	Protected Sub ButtonCancel_Click(ByVal sender As Object, ByVal e As EventArgs)
+		Modal.Close(Me)
+	End Sub
+End Class

@@ -1,0 +1,345 @@
+﻿@model IEnumerable<PAYG_Payroll.Models.Payslip>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_week_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_date_paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_first_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_last_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_emp_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_basic_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_rate_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_pay_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_basic_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_rate_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_pay_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_distance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_mile_rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_mile_pay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_advance_paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_tax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_ni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_gross_pay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_nett_pay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_gross_to_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_tax_to_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_ni_to_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_non_taxable_extra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_non_taxable_extra_reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_taxable_extra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_taxable_extra_reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_prev_tax_free_TD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_new_tax_free_TD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_employer_NIC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_sick_pay_days)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_sick_pay_amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_holiday_hours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_holiday_amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_hol_days)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_hol_rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_tax_code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_tax_text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_tax_letter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_hol_accrued)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_hol_taken)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_hol_left)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_act_hours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_paid_hmrc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_calc_accrued)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_text_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_text_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_text_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_basic_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_rate_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_pay_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ps_month_no)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_week_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_date_paid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_first_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_last_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_emp_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_basic_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_rate_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_pay_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_basic_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_rate_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_pay_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_distance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_mile_rate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_mile_pay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_advance_paid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_tax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_ni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_gross_pay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_nett_pay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_gross_to_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_tax_to_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_ni_to_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_non_taxable_extra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_non_taxable_extra_reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_taxable_extra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_taxable_extra_reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_prev_tax_free_TD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_new_tax_free_TD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_employer_NIC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_sick_pay_days)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_sick_pay_amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_holiday_hours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_holiday_amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_hol_days)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_hol_rate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_tax_code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_tax_text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_tax_letter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_hol_accrued)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_hol_taken)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_hol_left)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_act_hours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_paid_hmrc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_calc_accrued)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_text_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_text_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_text_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_basic_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_rate_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_pay_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ps_month_no)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

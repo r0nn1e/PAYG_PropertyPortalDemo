@@ -1,0 +1,23 @@
+﻿using System;
+using System.Web.UI.WebControls;
+
+public partial class SiteMaster : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        SelectThisPage();
+    }
+
+    private void SelectThisPage()
+    {
+        var thisPage = Request.Path;
+        foreach (MenuItem mi in NavigationMenu.Items)
+        {
+            //throw new Exception(ResolveUrl(mi.NavigateUrl) + " " + thisPage);
+            if (ResolveUrl(mi.NavigateUrl) == thisPage)
+            {
+                mi.Selected = true;
+            }
+        }
+    }
+}

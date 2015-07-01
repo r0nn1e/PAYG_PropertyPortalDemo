@@ -1,0 +1,117 @@
+﻿using System;
+using System.Data;
+using Data;
+using DayPilot.Utils;
+using DayPilot.Web.Ui;
+using DayPilot.Web.Ui.Enums;
+using DayPilot.Web.Ui.Events;
+using DayPilot.Web.Ui.Events.Scheduler;
+
+public partial class _Default : System.Web.UI.Page
+{
+    private DataTable tasks;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            DropDownListEmployee.DataSource = new DataManager().GetEmployees();
+            DropDownListEmployee.DataBind();
+            UpdateScheduler();
+            DayPilotScheduler1.SetScrollX(DayPilotScheduler1.StartDate.AddHours(0));
+        }
+    }
+
+    private void UpdateScheduler()
+    {
+        string eid = (string)(DayPilotScheduler1.ClientState["employee"] ?? DropDownListEmployee.SelectedValue);
+        int employee = Convert.ToInt32(eid);
+
+        DayPilotScheduler1.StartDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+        DayPilotScheduler1.Days = DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
+        DayPilotScheduler1.DataSource = new DataManager().GetRecords(employee);
+        DayPilotScheduler1.DataBind();
+        DayPilotScheduler1.Update();
+    }
+
+    protected void DayPilotScheduler1_EventMenuClick(object sender, EventMenuClickEventArgs e)
+    {
+        switch (e.Command)
+        {
+            case "Delete":
+                int id = e.Recurrent ? Convert.ToInt32(e.RecurrentMasterId) : Convert.ToInt32(e.Value);
+                new DataManager().DeleteRecord(id);
+                UpdateScheduler();
+                DayPilotScheduler1.Update();
+                break;
+        }
+    }
+
+    protected void DayPilotScheduler1_EventResize(object sender, EventResizeEventArgs e)
+    {
+        int id = e.Recurrent ? Convert.ToInt32(e.RecurrentMasterId) : Convert.ToInt32(e.Value);
+        new DataManager().MoveRecord(id, e.NewStart, e.NewEnd);
+        UpdateScheduler();
+    }
+
+    protected void DayPilotScheduler1_Command(object sender, CommandEventArgs e)
+    {
+        switch (e.Command)
+        {
+            case "refresh":
+                UpdateScheduler();
+                DayPilotScheduler1.Update(CallBackUpdateType.Full);
+                break;
+
+        }
+    }
+
+    protected void DayPilotScheduler1_BeforeEventRender(object sender, BeforeEventRenderEventArgs e)
+    {
+
+        bool IsChecked = RadioButton1.Checked;
+        if (e.PayRateId == 0)
+        {
+            e.BackgroundColor = "lightblue";
+            //e.BackgroundColor = "#3C8D2F";
+        }
+
+        TimeSpan duration = e.End - e.Start;
+        e.Html = Server.HtmlEncode(String.Format("{0} hours", duration.TotalHours.ToString()));
+        e.BubbleHtml = String.Format("<div><b>In</b>: {0:hh:mm tt}</div><div><b>Out</b>: {1:hh:mm tt}</div>", e.Start, e.End);
+
+    }
+
+    protected void DayPilotScheduler1_EventMove(object sender, EventMoveEventArgs e)
+    {
+        int id = e.Recurrent ? Convert.ToInt32(e.RecurrentMasterId) : Convert.ToInt32(e.Value);
+        new DataManager().MoveRecord(id, e.NewStart, e.NewEnd);
+        UpdateScheduler();
+    }
+    protected void DayPilotScheduler1_BeforeCellRender(object sender, BeforeCellRenderEventArgs e)
+    {
+        if (!e.IsBusiness)
+        {
+            e.BackgroundColor = "#729C34";
+        }
+    }
+
+    protected void DayPilotScheduler1_BeforeTimeHeaderRender(object sender, BeforeTimeHeaderRenderEventArgs e)
+    {
+    }
+
+    protected void DayPilotScheduler1_OnBeforeResHeaderRender(object sender, BeforeResHeaderRenderEventArgs e)
+    {
+        e.Columns[0].Html = e.Date.ToString("dddd");
+
+        string eid = (string)(DayPilotScheduler1.ClientState["employee"] ?? DropDownListEmployee.SelectedValue);
+        int employee = Convert.ToInt32(eid);
+
+        TimeSpan total = new DataManager().GetTotalMinutesForDay(e.Date, employee);
+
+        if (total > TimeSpan.Zero)
+        {
+            e.Columns[1].Html = total.ToString("hh\\:mm");
+        }
+    }
+}

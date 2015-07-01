@@ -1,0 +1,95 @@
+﻿<%@ Page Title="Timesheet Tutorial Project" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+    CodeFile="Default.aspx.cs" Inherits="_Default" %>
+
+<%@ Register Assembly="DayPilot" Namespace="DayPilot.Web.Ui" TagPrefix="DayPilot" %>
+
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent"></asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+
+    <div class="space">
+        <span style="margin-right: 30px;background-color:beige;padding:5px;">Employee:
+            <asp:DropDownList runat="server" ID="DropDownListEmployee" ClientIDMode="Static" DataTextField="EmployeeName" DataValueField="EmployeeId"></asp:DropDownList>
+        </span>
+        <span style="background-color:bisque;padding:5px;">
+            <asp:RadioButton GroupName="myGroup" ID="RadioButton1" runat="server" Checked="True" CssClass="btn btn-default" Text="Normal Rate" />
+            <asp:RadioButton GroupName="myGroup" ID="RadioButton2" runat="server" CssClass="btn btn-default" Text="Weekday Overtime" />
+            <asp:RadioButton GroupName="myGroup" ID="RadioButton3" runat="server" CssClass="btn btn-default" Text="Weekend Overtime" />
+            <asp:RadioButton GroupName="myGroup" ID="RadioButton4" runat="server" CssClass="btn btn-default" Text="Double Time" />
+        </span>
+
+    </div>
+
+    <DayPilot:DayPilotScheduler
+        ID="DayPilotScheduler1"
+        runat="server"
+        DataEndField="TimesheetOut"
+        DataStartField="TimesheetIn"
+        DataTextField="TimesheetId"
+        DataValueField="TimesheetId"
+        CellDuration="15"
+        EventMoveHandling="CallBack"
+        ContextMenuID="DayPilotMenu1"
+        OnEventMenuClick="DayPilotScheduler1_EventMenuClick"
+        EventResizeHandling="CallBack"
+        OnEventResize="DayPilotScheduler1_EventResize"
+        OnEventMove="DayPilotScheduler1_EventMove"
+        TimeRangeSelectedJavaScript="timeRangeSelected(start, end, resource);"
+        TimeRangeSelectedHandling="JavaScript"
+        EventClickHandling="JavaScript"
+        EventClickJavaScript="eventClick(e);"
+        ClientObjectName="dp"
+        EventDeleteHandling="JavaScript"
+        OnCommand="DayPilotScheduler1_Command"
+        ShowEventStartEnd="false"
+        OnBeforeEventRender="DayPilotScheduler1_BeforeEventRender"
+        EventHeight="25"
+        Width="100%"
+        AfterRenderJavaScript="afterRender();"
+        Theme="scheduler_green"
+        HourNameBackColor="#F0F0F0"
+        OnBeforeCellRender="DayPilotScheduler1_BeforeCellRender"
+        OnBeforeTimeHeaderRender="DayPilotScheduler1_BeforeTimeHeaderRender"
+        OnBeforeResHeaderRender="DayPilotScheduler1_OnBeforeResHeaderRender"
+        RowHeaderWidth="120"
+        RowHeaderWidthAutoFit="true"
+        DurationBarVisible="true"
+        HeaderHeight="20"
+        CellWidth="25"
+        BubbleID="BubbleEvent"
+        ViewType="Days"
+        ShowToolTip="false"
+        CellGroupBy="Hour"
+        BusinessBeginsHour="0"
+        BusinessEndsHour="24" Style="top: 0px; left: 0px" LoadingLabelBackColor="Red" StartDate="2015-04-06">
+        <HeaderColumns>
+            <DayPilot:RowHeaderColumn Title="Date" Width="100" />
+            <DayPilot:RowHeaderColumn Title="Day" Width="100" />
+            <DayPilot:RowHeaderColumn Title="Total" Width="100" />
+        </HeaderColumns>
+    </DayPilot:DayPilotScheduler>
+
+    <DayPilot:DayPilotMenu ID="DayPilotMenu1" runat="server">
+        <DayPilot:MenuItem Text="Edit..." Action="JavaScript" JavaScript="eventClick(e);"></DayPilot:MenuItem>
+        <DayPilot:MenuItem Text="-" Action="NavigateUrl"></DayPilot:MenuItem>
+        <DayPilot:MenuItem Text="Delete" Action="JavaScript" JavaScript=" if (confirm('Do you really want to delete this task?')) dp.eventMenuClickCallBack(e, 'Delete');"></DayPilot:MenuItem>
+    </DayPilot:DayPilotMenu>
+
+    <DayPilot:DayPilotBubble
+        ID="BubbleEvent"
+        runat="server"
+        ShowAfter="500"
+        HideAfter="10">
+    </DayPilot:DayPilotBubble>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            dp.clientState.employee = $("#<%= DropDownListEmployee.ClientID %>").val();
+        $("#<%= DropDownListEmployee.ClientID %>").change(function () {
+            dp.clientState.employee = this.value;
+            dp.commandCallBack("refresh");
+        });
+    });
+    </script>
+
+</asp:Content>

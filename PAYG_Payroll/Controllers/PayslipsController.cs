@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using PAYG_Payroll.Models;
+
+namespace PAYG_Payroll.Controllers
+{
+    [Authorize]
+    public class PayslipsController : Controller
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: Payslips
+        public ActionResult Index()
+        {
+            return View(db.Payslips.ToList());
+        }
+
+        // GET: Payslips/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Payslip payslip = db.Payslips.Find(id);
+            if (payslip == null)
+            {
+                return HttpNotFound();
+            }
+            return View(payslip);
+        }
+
+        // GET: Payslips/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Payslips/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,ps_id,ps_week_no,ps_date_paid,ps_first_name,ps_last_name,ps_emp_id,ps_basic_1,ps_rate_1,ps_pay_1,ps_basic_2,ps_rate_2,ps_pay_2,ps_distance,ps_mile_rate,ps_mile_pay,ps_advance_paid,ps_tax,ps_ni,ps_gross_pay,ps_nett_pay,ps_gross_to_date,ps_tax_to_date,ps_ni_to_date,ps_non_taxable_extra,ps_non_taxable_extra_reason,ps_taxable_extra,ps_taxable_extra_reason,ps_prev_tax_free_TD,ps_new_tax_free_TD,ps_employer_NIC,ps_sick_pay_days,ps_sick_pay_amount,ps_holiday_hours,ps_holiday_amount,ps_hol_days,ps_hol_rate,ps_tax_code,ps_tax_text,ps_tax_letter,ps_year,ps_hol_accrued,ps_hol_taken,ps_hol_left,ps_act_hours,ps_paid_hmrc,ps_calc_accrued,ps_text_1,ps_text_2,ps_text_3,ps_basic_3,ps_rate_3,ps_pay_3,ps_month_no")] Payslip payslip)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Payslips.Add(payslip);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(payslip);
+        }
+
+        // GET: Payslips/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Payslip payslip = db.Payslips.Find(id);
+            if (payslip == null)
+            {
+                return HttpNotFound();
+            }
+            return View(payslip);
+        }
+
+        // POST: Payslips/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,ps_id,ps_week_no,ps_date_paid,ps_first_name,ps_last_name,ps_emp_id,ps_basic_1,ps_rate_1,ps_pay_1,ps_basic_2,ps_rate_2,ps_pay_2,ps_distance,ps_mile_rate,ps_mile_pay,ps_advance_paid,ps_tax,ps_ni,ps_gross_pay,ps_nett_pay,ps_gross_to_date,ps_tax_to_date,ps_ni_to_date,ps_non_taxable_extra,ps_non_taxable_extra_reason,ps_taxable_extra,ps_taxable_extra_reason,ps_prev_tax_free_TD,ps_new_tax_free_TD,ps_employer_NIC,ps_sick_pay_days,ps_sick_pay_amount,ps_holiday_hours,ps_holiday_amount,ps_hol_days,ps_hol_rate,ps_tax_code,ps_tax_text,ps_tax_letter,ps_year,ps_hol_accrued,ps_hol_taken,ps_hol_left,ps_act_hours,ps_paid_hmrc,ps_calc_accrued,ps_text_1,ps_text_2,ps_text_3,ps_basic_3,ps_rate_3,ps_pay_3,ps_month_no")] Payslip payslip)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(payslip).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(payslip);
+        }
+
+        // GET: Payslips/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Payslip payslip = db.Payslips.Find(id);
+            if (payslip == null)
+            {
+                return HttpNotFound();
+            }
+            return View(payslip);
+        }
+
+        // POST: Payslips/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Payslip payslip = db.Payslips.Find(id);
+            db.Payslips.Remove(payslip);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        public ActionResult SelectPayWeek()
+        {
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            for (int i = 1;i<54;i++)
+            {
+                items.Add(new SelectListItem { Text = "Week :"+i.ToString(), Value = i.ToString() });
+            }
+            
+            ViewBag.MovieType = items;
+
+            return View();
+
+        }
+    }
+}
